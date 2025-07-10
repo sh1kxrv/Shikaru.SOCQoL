@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(SolutionDir)Environment.props" Condition="Exists('$(SolutionDir)Environment.props')" />
+  <Import Project="$(SolutionDir)DoPrebuild.props" Condition="Exists('$(SolutionDir)DoPrebuild.props') And '$(ExecutePrebuild)' == ''" />
+  <Choose>
+    <When Condition="($(OS) == 'Windows_NT') AND $(SOC_INSTALL) == ''">
+      <PropertyGroup>
+        <SOC_INSTALL Condition="!Exists('$(SOC_INSTALL)')">$([MSBuild]::GetRegistryValueFromView('HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Steam App 867210', 'InstallLocation', null, RegistryView.Registry64, RegistryView.Registry32))</SOC_INSTALL>
+        <_SteamLibraryPath>$([MSBuild]::GetRegistryValueFromView('HKEY_CURRENT_USER\SOFTWARE\Valve\Steam', 'SteamPath', null, RegistryView.Registry32))</_SteamLibraryPath>
+        <SOC_INSTALL Condition="!Exists('$(SOC_INSTALL)') AND '$(_SteamLibraryPath)' != ''">$(_SteamLibraryPath)\steamapps\common\SongsOfConquest</SOC_INSTALL>
+        <SOC_INSTALL Condition="!Exists('$(SOC_INSTALL)')">C:\Program Files\Steam\steamapps\common\SongsOfConquest</SOC_INSTALL>
+        <SOC_INSTALL Condition="!Exists('$(SOC_INSTALL)')">C:\Program Files (x86)\Steam\steamapps\common\SongsOfConquest</SOC_INSTALL>
+      </PropertyGroup>
+    </When>
+  </Choose>
+  <PropertyGroup Condition="$(BEPINEX_PATH)=='' AND $(SOC_INSTALL) != ''">
+    <BEPINEX_PATH>$(SOC_INSTALL)\BepInEx</BEPINEX_PATH>
+  </PropertyGroup>
+</Project>
