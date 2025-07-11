@@ -58,7 +58,7 @@ public class Entrypoint : BaseUnityPlugin
                 Logger.LogError("Missing required component");
             }
 
-            Logger.LogInfo("Compnoent successfully initialized!");
+            Logger.LogInfo("Component successfully initialized!");
         }
         catch(Exception ex)
         {
