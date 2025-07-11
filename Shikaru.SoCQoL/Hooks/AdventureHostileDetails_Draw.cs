@@ -2,15 +2,21 @@
 using Shikaru.SoCQoL.Handler;
 using SongsOfConquest.Client.Gamestate.Facade;
 using SongsOfConquest.Client.InputManagement;
+using SongsOfConquest.Common.Gamestate.Commander;
 
 namespace Shikaru.SOC.Hooks;
 
 [HarmonyPatch(typeof(AdventureHostileDetails), nameof(AdventureHostileDetails.Draw))]
 public static class AdventureHostileDetails_Draw
 {
-    private static string MakeField(string name, int value)
+    private static string MakeField(string name, int value, string valueB = "")
     {
-        return $"{name.White()} - {value.ToString().Grey()}";
+        string builded = $"{name.White()} - {value.ToString().Grey()}";
+        if (valueB.Length > 0)
+        {
+            builded += $" vs {valueB}";
+        }
+        return builded;
     }
     private static void DrawCharacteristic(IDetailsDrawer drawer, string field)
     {
@@ -42,15 +48,17 @@ public static class AdventureHostileDetails_Draw
                     drawer.AddTextLeftRight("Расширенная информация", "отряды");
                     drawer.AddSpace(DetailsEmptySpace.DetailsSpaceSize.Medium);
 
-                    // x.TeamFactionIndex == 0 - is neutral
-                    var commanders = AdventureHandler.Instance.ClientAdventureFacade.Commanders.All.Where(x => x.IsEnabled && x.TeamFactionIndex != 0);
+                    var currentCommander = AdventureHandler.Instance.SelectionHandler.SelectedCommander as CommanderState;
 
                     int attacks = __instance.Troops.Select((x) => x.Stats.Damage.GetValue()).Aggregate(0, (acc, x) => acc + x.average);
                     int defense = __instance.Troops.Select((x) => x.Stats.Defense.GetValue()).Aggregate(0, (acc, x) => acc + x);
                     int rangedAttacks = __instance.Troops.Select((x) => x.Stats.RangedAttack.Offense.GetValue()).Aggregate(0, (acc, x) => acc + x);
                     int initiatives = __instance.Troops.Select((x) => x.Stats.Initiative.GetValue()).Aggregate(0, (acc, x) => acc + x);
 
-                    string attackField = MakeField("Урон", attacks);
+                    var troops = AdventureHandler.Instance.ClientAdventureFacade.Troops.GetForCommander(currentCommander.Id);
+                    var commanderTroopsAttacks = troops.Select((x) => x.Stats.Damage.GetValue()).Aggregate(0, (acc, x) => acc + x.average);
+
+                    string attackField = MakeField("Урон", attacks, commanderTroopsAttacks.ToString());
                     string defenceField = MakeField("Защита", defense);
 
                     DrawCharacteristic(drawer, attackField);

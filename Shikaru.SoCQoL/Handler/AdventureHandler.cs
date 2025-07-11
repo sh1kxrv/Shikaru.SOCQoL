@@ -8,6 +8,9 @@ public class AdventureHandler
     [Inject]
     public IClientAdventureFacade ClientAdventureFacade;
 
+    [Inject]
+    public ISelectionHandler SelectionHandler;
+
     public AdventureHandler()
     {
         if (Instance == null)
