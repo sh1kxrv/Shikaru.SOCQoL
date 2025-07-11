@@ -1,0 +1,29 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36301.6
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shikaru.SoCQoL", "Shikaru.SoCQoL\Shikaru.SoCQoL.csproj", "{24FC6314-9355-4537-8C9A-62CC4E0DF860}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shikaru.MSBuild", "Shikaru.MSBuild\Shikaru.MSBuild.csproj", "{C45A1CDD-3B78-44A7-A8D6-BC98F70187AC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{24FC6314-9355-4537-8C9A-62CC4E0DF860}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24FC6314-9355-4537-8C9A-62CC4E0DF860}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24FC6314-9355-4537-8C9A-62CC4E0DF860}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24FC6314-9355-4537-8C9A-62CC4E0DF860}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C45A1CDD-3B78-44A7-A8D6-BC98F70187AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C45A1CDD-3B78-44A7-A8D6-BC98F70187AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BF695082-8A6D-4999-B597-0979A838DACF}
+	EndGlobalSection
+EndGlobal

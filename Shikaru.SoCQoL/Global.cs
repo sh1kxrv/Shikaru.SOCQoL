@@ -1,0 +1,12 @@
+﻿global using System;
+global using System.Linq;
+global using System.Reflection;
+global using Shikaru.SoCQoL;
+global using SongsOfConquest;
+global using SongsOfConquest.Client;
+global using SongsOfConquest.Client.UI;
+global using SongsOfConquest.Common;
+global using SongsOfConquest.Common.Details;
+global using SongsOfConquest.Common.Localization;
+global using HarmonyLib;
+global using UnityEngine;
