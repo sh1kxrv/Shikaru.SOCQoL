@@ -1,4 +1,5 @@
 ﻿using Lavapotion.Client.InputManagement;
+using Shikaru.SoCQoL.Handler;
 using SongsOfConquest.Client.Gamestate.Facade;
 using SongsOfConquest.Client.InputManagement;
 
@@ -40,6 +41,9 @@ public static class AdventureHostileDetails_Draw
                 {
                     drawer.AddTextLeftRight("Расширенная информация", "отряды");
                     drawer.AddSpace(DetailsEmptySpace.DetailsSpaceSize.Medium);
+
+                    // x.TeamFactionIndex == 0 - is neutral
+                    var commanders = AdventureHandler.Instance.ClientAdventureFacade.Commanders.All.Where(x => x.IsEnabled && x.TeamFactionIndex != 0);
 
                     int attacks = __instance.Troops.Select((x) => x.Stats.Damage.GetValue()).Aggregate(0, (acc, x) => acc + x.average);
                     int defense = __instance.Troops.Select((x) => x.Stats.Defense.GetValue()).Aggregate(0, (acc, x) => acc + x);

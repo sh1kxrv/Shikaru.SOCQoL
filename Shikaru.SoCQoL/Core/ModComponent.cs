@@ -1,7 +1,7 @@
 ﻿using BepInEx.Logging;
+using Logger = BepInEx.Logging.Logger;
 
 namespace Shikaru.SoCQoL.Core;
-using Logger = BepInEx.Logging.Logger;
 
 public sealed class ModComponent : MonoBehaviour
 {

@@ -8,14 +8,14 @@
 		<LangVersion>latest</LangVersion>
 	</PropertyGroup>
 
-	<Import Project=".\Paths.props" />
+	<Import Project="..\Paths.props" />
 
 	<PropertyGroup>
-		<SOC_MANAGED>$(SOC_INSTALL)/SongsOfConquest_Data/Managed</SOC_MANAGED>
 		<UNITY_FOLDER>$(SolutionDir)Shikaru.SOCQoL/Unity</UNITY_FOLDER>
 	</PropertyGroup>
+
 	<ItemGroup>
-		<Folder Include="Hooks\" />
+	  <ProjectReference Include="..\Bepinject\Bepinject.csproj" />
 	</ItemGroup>
 	<ItemGroup>
 		<Reference Include="0Harmony">
@@ -59,6 +59,10 @@
 			<HintPath>$(SOC_MANAGED)\Lavapotion.SongsOfConquest.UILayer.Runtime.dll</HintPath>
 			<Private>False</Private>
 		</Reference>
+		<Reference Include="Lavapotion.SongsOfConquest.SetupLayer.Runtime">
+			<HintPath>$(SOC_MANAGED)\Lavapotion.SongsOfConquest.SetupLayer.Runtime.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
 		<Reference Include="Lavapotion.SongsOfConquest.UtilitiesLayer.Runtime">
 			<HintPath>$(SOC_MANAGED)\Lavapotion.SongsOfConquest.UtilitiesLayer.Runtime.dll</HintPath>
 			<Private>False</Private>
@@ -85,6 +89,14 @@
 		</Reference>
 		<Reference Include="UnityEngine.InputModule">
 			<HintPath>$(SOC_MANAGED)\UnityEngine.InputModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="Zenject">
+			<HintPath>$(SOC_MANAGED)\Zenject.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="Zenject">
+			<HintPath>$(SOC_MANAGED)\Zenject-usage.dll</HintPath>
 			<Private>False</Private>
 		</Reference>
 	</ItemGroup>

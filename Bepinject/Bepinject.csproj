@@ -1,0 +1,57 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <LangVersion>8</LangVersion>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+	<Import Project="..\Paths.props" />
+
+  <ItemGroup>
+    <Reference Include="0Harmony">
+	    <HintPath>$(BEPINEX_CORE)\0Harmony.dll</HintPath>
+	    <Private>False</Private>
+    </Reference>
+
+    <Reference Include="BepInEx">
+	    <HintPath>$(BEPINEX_CORE)\BepInEx.dll</HintPath>
+	    <Private>False</Private>
+    </Reference>
+    <Reference Include="Mono.Cecil">
+	    <HintPath>$(BEPINEX_CORE)\Mono.Cecil.dll</HintPath>
+	    <Private>False</Private>
+    </Reference>
+    <Reference Include="MonoMod.RuntimeDetour">
+	    <HintPath>$(BEPINEX_CORE)\MonoMod.RuntimeDetour.dll</HintPath>
+	    <Private>False</Private>
+    </Reference>
+    <Reference Include="MonoMod.Utils">
+	    <HintPath>$(BEPINEX_CORE)\MonoMod.Utils.dll</HintPath>
+	    <Private>False</Private>
+    </Reference>
+	<Reference Include="UnityEngine">
+		<HintPath>$(SOC_MANAGED)\UnityEngine.dll</HintPath>
+		<Private>False</Private>
+	</Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>$(SOC_MANAGED)\UnityEngine.CoreModule.dll</HintPath>
+    </Reference>
+	<Reference Include="Zenject">
+		<HintPath>$(SOC_MANAGED)\Zenject.dll</HintPath>
+		<Private>False</Private>
+	</Reference>
+	<Reference Include="Zenject">
+		<HintPath>$(SOC_MANAGED)\Zenject-usage.dll</HintPath>
+		<Private>False</Private>
+	</Reference>
+  </ItemGroup>
+
+  <!--<ItemGroup>
+    <None Include="Bepinject.csproj.user" Condition="Exists('Bepinject.csproj.user')" Visible="true" />
+    <None Include="Directory.Build.props" Condition="Exists('Directory.Build.props')" Visible="true" />
+    <None Include="Directory.Build.targets" Condition="Exists('Directory.Build.targets')" Visible="true" />
+  </ItemGroup>-->
+
+</Project>

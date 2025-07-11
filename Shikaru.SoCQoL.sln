@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shikaru.SoCQoL", "Shikaru.S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shikaru.MSBuild", "Shikaru.MSBuild\Shikaru.MSBuild.csproj", "{C45A1CDD-3B78-44A7-A8D6-BC98F70187AC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bepinject", "Bepinject\Bepinject.csproj", "{CC55C6F7-1DF0-D4C4-50A1-EAB34FC0D829}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +21,10 @@ Global
 		{24FC6314-9355-4537-8C9A-62CC4E0DF860}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C45A1CDD-3B78-44A7-A8D6-BC98F70187AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C45A1CDD-3B78-44A7-A8D6-BC98F70187AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC55C6F7-1DF0-D4C4-50A1-EAB34FC0D829}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC55C6F7-1DF0-D4C4-50A1-EAB34FC0D829}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC55C6F7-1DF0-D4C4-50A1-EAB34FC0D829}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC55C6F7-1DF0-D4C4-50A1-EAB34FC0D829}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

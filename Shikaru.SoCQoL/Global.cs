@@ -10,3 +10,4 @@ global using SongsOfConquest.Common.Details;
 global using SongsOfConquest.Common.Localization;
 global using HarmonyLib;
 global using UnityEngine;
+global using Zenject;

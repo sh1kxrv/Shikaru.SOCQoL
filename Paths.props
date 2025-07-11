@@ -16,5 +16,6 @@
   <PropertyGroup Condition="$(BEPINEX_PATH)=='' AND $(SOC_INSTALL) != ''">
     <BEPINEX_PATH>$(SOC_INSTALL)\BepInEx</BEPINEX_PATH>
 	<BEPINEX_CORE>$(SOC_INSTALL)\BepInEx\core</BEPINEX_CORE>
+<SOC_MANAGED>$(SOC_INSTALL)/SongsOfConquest_Data/Managed</SOC_MANAGED>
   </PropertyGroup>
 </Project>

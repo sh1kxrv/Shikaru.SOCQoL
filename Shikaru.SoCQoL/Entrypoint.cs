@@ -1,19 +1,27 @@
 ﻿using BepInEx;
+using Bepinject;
+using Shikaru.SoCQoL.Core;
+using Shikaru.SoCQoL.Installer;
 
-namespace Shikaru.SoCQoL.Core;
+namespace Shikaru.SoCQoL;
 
 [BepInPlugin(ModConstant.Id, "Shikaru.SoCQoL", "1.0.0.0")]
 public class Entrypoint : BaseUnityPlugin
 {
+    public static Entrypoint Instance { get; private set; }
     void Awake()
     {
         try
         {
+            Instance = this;
+
             Logger.LogMessage("Initializing...");
 
             PatchMethods();
 
             RegisterModComponent();
+
+            Zenjector.Install<AdventureInstaller>().OnScene("AdventureScene");
 
             Logger.LogMessage("Successfully initialized!");
         }
@@ -57,6 +65,7 @@ public class Entrypoint : BaseUnityPlugin
                 Destroy(go);
                 Logger.LogError("Missing required component");
             }
+
 
             Logger.LogInfo("Component successfully initialized!");
         }
