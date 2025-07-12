@@ -2,27 +2,14 @@
 using Shikaru.SoCQoL.Handler;
 using SongsOfConquest.Client.Gamestate.Facade;
 using SongsOfConquest.Client.InputManagement;
-using SongsOfConquest.Common.Gamestate.Commander;
+using System.Globalization;
 
 namespace Shikaru.SOC.Hooks;
 
 [HarmonyPatch(typeof(AdventureHostileDetails), nameof(AdventureHostileDetails.Draw))]
 public static class AdventureHostileDetails_Draw
 {
-    private static string MakeField(string name, int value, string valueB = "")
-    {
-        string builded = $"{name.White()} - {value.ToString().Grey()}";
-        if (valueB.Length > 0)
-        {
-            builded += $" vs {valueB}";
-        }
-        return builded;
-    }
-    private static void DrawCharacteristic(IDetailsDrawer drawer, string field)
-    {
-        drawer.AddText(field, FontType.LabelMedium, HorizontalAlignment.Center);
-        drawer.AddSpace(DetailsEmptySpace.DetailsSpaceSize.Small);
-    }
+    private static NumberFormatInfo format = new NumberFormatInfo { NumberGroupSeparator = " " };
     public static bool Prefix(IDetailsDrawer drawer, ILocalizationHandler loc, AdventureHostileDetails __instance)
     {
         bool expandedTooltipsActive = GamepadGlobalHotkeysStaticAccessUnsafe.Current.ExpandedTooltipsActive;
@@ -45,33 +32,38 @@ public static class AdventureHostileDetails_Draw
                 AdventureHostileTownDetails.DrawThreatLevel(drawer, loc, text, __instance.ThreatLevel, false);
                 if (__instance.Troops.Count > 0 && flag)
                 {
-                    drawer.AddTextLeftRight("Расширенная информация", "отряды");
+                    drawer.AddTextLeftRight("Сложность", "подробно");
                     drawer.AddSpace(DetailsEmptySpace.DetailsSpaceSize.Medium);
 
-                    var currentCommander = AdventureHandler.Instance.SelectionHandler.SelectedCommander as CommanderState;
+                    var currentCommander = AdventureHandler.Instance.SelectionHandler.SelectedCommander;
+                    var troops = AdventureHandler.Instance.AdventureFacade.Troops.GetForCommander(currentCommander.Id);
 
-                    int attacks = __instance.Troops.Select((x) => x.Stats.Damage.GetValue()).Aggregate(0, (acc, x) => acc + x.average);
-                    int defense = __instance.Troops.Select((x) => x.Stats.Defense.GetValue()).Aggregate(0, (acc, x) => acc + x);
-                    int rangedAttacks = __instance.Troops.Select((x) => x.Stats.RangedAttack.Offense.GetValue()).Aggregate(0, (acc, x) => acc + x);
-                    int initiatives = __instance.Troops.Select((x) => x.Stats.Initiative.GetValue()).Aggregate(0, (acc, x) => acc + x);
+                    var defendingCommander = AdventureHandler.Instance.AdventureFacade.Commanders.Get(__instance.Id);
+                    var defendingTroops = AdventureHandler.Instance.AdventureFacade.Troops.GetForCommander(defendingCommander.Id);
 
-                    var troops = AdventureHandler.Instance.ClientAdventureFacade.Troops.GetForCommander(currentCommander.Id);
-                    var commanderTroopsAttacks = troops.Select((x) => x.Stats.Damage.GetValue()).Aggregate(0, (acc, x) => acc + x.average);
+                    float attackingThreatValue = AdventureHandler.Instance.ThreatLevelUtility.GetThreatValue(currentCommander, troops, null, false);
+                    float defendingThreatValue = AdventureHandler.Instance.ThreatLevelUtility.GetThreatValue(defendingCommander, defendingTroops, null, false);
 
-                    string attackField = MakeField("Урон", attacks, commanderTroopsAttacks.ToString());
-                    string defenceField = MakeField("Защита", defense);
-
-                    DrawCharacteristic(drawer, attackField);
-                    DrawCharacteristic(drawer, defenceField);
-
-                    if (rangedAttacks > 0)
+                    // TODO: Добавить расчёт дальнего и ближнего боя отрядов
+                    if (attackingThreatValue > defendingThreatValue)
                     {
-                        string rangedField = MakeField("Дальний бой", rangedAttacks);
-                        DrawCharacteristic(drawer, rangedField);
+                        drawer.AddText($"Вы {"сильнее".Green().Bold()} противника в {Math.Round(attackingThreatValue / defendingThreatValue, 1)} раз(а)", FontType.LabelMedium);
+                    }
+                    else if (attackingThreatValue < defendingThreatValue)
+                    {
+                        drawer.AddText($"Вы {"слабее".SoftRed().Bold()} противника в {Math.Round(defendingThreatValue / attackingThreatValue, 1)} раз(а)", FontType.LabelMedium);
+                    }
+                    else
+                    {
+                        drawer.AddText("Ваши силы равны", FontType.LabelMedium);
+                        drawer.AddBottomFade(Color.grey);
                     }
 
-                    string initiativeField = MakeField("Инициатива", initiatives);
-                    DrawCharacteristic(drawer, initiativeField);
+                    drawer.AddSpace(DetailsEmptySpace.DetailsSpaceSize.Small);
+
+                    drawer.AddText($"< Вы: ({Math.Round(attackingThreatValue, 1).ToString("n", format)}) vs ({Math.Round(defendingThreatValue, 1).ToString("n", format)}) >", FontType.LabelTiny, HorizontalAlignment.Center, VerticalAlignment.Middle, FontColor.Granite);
+
+                    drawer.AddSpace(DetailsEmptySpace.DetailsSpaceSize.Medium);
 
                     drawer.AddTextLeftRight(loc.GetText("Commanders/Tooltip/Troops"), string.Empty);
                     drawer.AddSpace(DetailsEmptySpace.DetailsSpaceSize.Medium);

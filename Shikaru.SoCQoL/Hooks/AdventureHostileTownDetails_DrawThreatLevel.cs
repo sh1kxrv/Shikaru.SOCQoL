@@ -9,7 +9,6 @@ public static class AdventureHostileTownDetails_DrawThreatLevel
     public static bool Prefix(IDetailsDrawer drawer, ILocalizationHandler loc, string localizedCommanderName, ThreatLevel threatLevel, bool isUnknown, AdventureHostileTownDetails __instance)
     {
         return true;
-        // Maybe todo change it ?
         if (isUnknown)
         {
             drawer.AddImageDivider();
@@ -19,7 +18,7 @@ public static class AdventureHostileTownDetails_DrawThreatLevel
             drawer.AddTextLeftRight(loc.GetText("Commanders/Tooltip/ThreatLevelLabel"), string.Empty);
         }
         drawer.AddSpace(DetailsEmptySpace.DetailsSpaceSize.Medium);
-        drawer.AddText("Commanders/Tooltip/ThreatLevel".Localize(loc, new object[] { localizedCommanderName }), FontType.LabelSmall, HorizontalAlignment.Center, VerticalAlignment.Middle, FontColor.Limestone);
+        drawer.AddText("Commanders/Tooltip/ThreatLevel".Localize(loc, [localizedCommanderName]), FontType.LabelSmall, HorizontalAlignment.Center, VerticalAlignment.Middle, FontColor.Limestone);
         if (isUnknown)
         {
             string unknownLocalized = "Adventure/ThreatLevel/Unknown".Localize(loc).Color(ColorUtilities.ThreatLevelColors.Unknown);
@@ -36,6 +35,7 @@ public static class AdventureHostileTownDetails_DrawThreatLevel
                 FontType.LabelSmall, HorizontalAlignment.Center, VerticalAlignment.Middle, FontColor.White
             );
         }
+
         drawer.AddSpace(DetailsEmptySpace.DetailsSpaceSize.Large);
     }
 }
