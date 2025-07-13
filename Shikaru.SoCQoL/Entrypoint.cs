@@ -1,7 +1,9 @@
 ﻿using BepInEx;
 using Bepinject;
+using I2.Loc;
 using Shikaru.SoCQoL.Core;
 using Shikaru.SoCQoL.Installer;
+using SongsOfConquest.SocialPlatforms;
 
 namespace Shikaru.SoCQoL;
 
@@ -18,8 +20,6 @@ public class Entrypoint : BaseUnityPlugin
             Logger.LogMessage("Initializing...");
 
             PatchMethods();
-
-            RegisterModComponent();
 
             Zenjector.Install<AdventureInstaller>().OnScene("AdventureScene");
 
@@ -48,30 +48,6 @@ public class Entrypoint : BaseUnityPlugin
         catch (Exception ex)
         {
             throw new Exception("Failed to patch methods.", ex);
-        }
-    }
-
-    private void RegisterModComponent()
-    {
-        try
-        {
-            GameObject go = new GameObject(ModConstant.Id);
-            go.hideFlags = HideFlags.HideAndDontSave;
-            DontDestroyOnLoad(go);
-
-            ModComponent component = go.AddComponent<ModComponent>();
-            if (component is null)
-            {
-                Destroy(go);
-                Logger.LogError("Missing required component");
-            }
-
-
-            Logger.LogInfo("Component successfully initialized!");
-        }
-        catch(Exception ex)
-        {
-            Logger.LogError($"{ModConstant.Id}: {ex}");
         }
     }
 }

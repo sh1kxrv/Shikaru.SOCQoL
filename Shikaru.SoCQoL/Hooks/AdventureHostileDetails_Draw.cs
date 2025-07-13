@@ -37,7 +37,7 @@ public static class AdventureHostileDetails_Draw
 
                     var currentCommander = AdventureHandler.Instance.SelectionHandler.SelectedCommander;
                     var troops = AdventureHandler.Instance.AdventureFacade.Troops.GetForCommander(currentCommander.Id);
-
+                    
                     var defendingCommander = AdventureHandler.Instance.AdventureFacade.Commanders.Get(__instance.Id);
                     var defendingTroops = AdventureHandler.Instance.AdventureFacade.Troops.GetForCommander(defendingCommander.Id);
 

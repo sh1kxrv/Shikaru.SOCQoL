@@ -91,6 +91,10 @@
 			<HintPath>$(SOC_MANAGED)\UnityEngine.InputModule.dll</HintPath>
 			<Private>False</Private>
 		</Reference>
+		<Reference Include="I2LocalizationDef">
+			<HintPath>$(SOC_MANAGED)\I2LocalizationDef.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
 		<Reference Include="Zenject">
 			<HintPath>$(SOC_MANAGED)\Zenject.dll</HintPath>
 			<Private>False</Private>
